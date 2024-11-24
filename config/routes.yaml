@@ -1,5 +1,11 @@
-controllers:
+client:
     resource:
-        path: ../src/Controller/
-        namespace: App\Controller
+        path: ../src/Client/Application/Controller/
+        namespace: App\Client\Application\Controller
+    type: attribute
+
+credit:
+    resource:
+        path: ../src/Credit/Application/Controller/
+        namespace: App\Credit\Application\Controller
     type: attribute
