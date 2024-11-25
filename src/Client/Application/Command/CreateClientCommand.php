@@ -2,6 +2,8 @@
 
 namespace App\Client\Application\Command;
 
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+
 class CreateClientCommand
 {
     public function __construct(
@@ -16,5 +18,10 @@ class CreateClientCommand
         public ?string $state = null,
         public ?int $income = null,
     ) {
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        // some validation
     }
 }

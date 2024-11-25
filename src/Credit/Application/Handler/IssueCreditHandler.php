@@ -3,10 +3,11 @@
 namespace App\Credit\Application\Handler;
 
 use App\Credit\Application\Command\IssueCreditCommand;
-use App\Credit\Application\Message\Notification;
 use App\Credit\Application\Query\ScoreCreditQuery;
 use App\Credit\Domain\Entity\Issuance;
 use App\Credit\Infrastructure\Repository\IssuanceRepository;
+use App\Notification\Application\Message\Notification;
+use App\Notification\Domain\Entity\Sms;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 readonly class IssueCreditHandler
@@ -29,11 +30,11 @@ readonly class IssueCreditHandler
 
         if ($scoring->isAllowed) {
             $issuance = $this->issuanceRepository->createFromScoring($scoring);
+            $client = $command->client;
 
-            $this->bus->dispatch(new Notification(
-                $command->client,
-                'Credit issued'
-            ));
+            $sms = new Sms($client->getPhone(), 'Credit issued');
+
+            $this->bus->dispatch(new Notification($sms));
         }
 
         return $issuance;

@@ -29,3 +29,6 @@ services:
     App\Credit\Application\Controller\:
         resource: '../src/Credit/Application/Controller/'
         tags: ['controller.service_arguments']
+
+    App\EventListener\ExceptionListener:
+        tags: [kernel.event_listener]
